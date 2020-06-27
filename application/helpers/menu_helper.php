@@ -6,15 +6,16 @@
  * Time: 21.42
  */
 
-function getMenu($id_user = false)
+function getMenu($id_group = false)
 {
     $ci = &get_instance();
     $ci->load->library('session');
     $ci->load->model('general_model', 'general');
 
     $id_user = $ci->session->userdata('id');
+    $id_group = $ci->general->getwhere('m_user',array('id'=> $id_user));
     #getmenu by user
-    $query = $ci->general->getwhere('m_menu_user',array('id_user'=> $id_user),1);
+    $query = $ci->general->getwhere('m_menu_group',array('id_group'=> $id_group['id_group']),1);
 
     if($query){
         foreach ($query as $row) {
@@ -49,12 +50,12 @@ function getMenu($id_user = false)
                     $category_2 = $ci->general->getwhere('m_menu', array('parent_id' => $data2['id']), 1,false,false,array('param'=>'menu_order','by'=>'asc'),'id',$in);
                     if ($category_2) {
                         #jika ada sub menu
-                        echo"<a href=".base_url($data2['link'])." class='nav-link'><i class='".$data2['icon']."'></i> <p>".$data2['menu']."</p><i class='fa fa-angle-left pull-right'></i></a>";
+                        echo"<a href=".base_url($data2['link'])." class='nav-link'><i class='".$data2['icon']."'></i> <p>".$data2['menu']."</p>&nbsp&nbsp&nbsp<i class='fa fa-angle-left pull-right'></i></a> ";
 
                         echo"<ul class='nav nav-treeview'>";
                         foreach ($category_2 as $hasil) {
                             echo "
-                                <li class='nav-item'><a href=".base_url($hasil['link'])." class='nav-link'><i class='".$hasil['icon']."'></i> <p>".$hasil['menu']."</p></a></li>
+                                <li class='nav-item'><a href=".base_url($hasil['link'])." class='nav-link'><i class='".$hasil['icon']."'></i> <p>".$hasil['menu']."</p></a></li> 
                                 ";
                         }
 

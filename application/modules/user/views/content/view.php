@@ -40,6 +40,7 @@
                                 <th width="">Nama</th>
                                 <th width="">Username</th>
                                 <th width="">Password</th>
+                                <th width="">Group</th>
                                 <th width="30%">Action</th>
                             </tr>
                 </thead>
@@ -54,22 +55,21 @@
                                         <td><?php echo $i;?></td>
                                         <td><?php echo $value['nama'];?></td>
                                         <td><?php echo $value['username'];?></td>
-                                        <td><?php echo substr($value['password'],0,50);?></td>
+                                        <td><?php echo substr($value['password'],0,20);?></td>
+                                        <td><?php echo $value['nama_group'];?></td>
 
                                         <td width="">
 
                                             <a href="<?php echo base_url('user/edit/'.$value['id']);?>"><i class="fa fa-edit">Edit</i></a> | 
-                                            <a href="<?php echo base_url('user/hak_akses/'.$value['id']);?>"> <i class="fa fa-list">Menu</i></a> |
                                             <a href="<?php echo base_url('user/reset_password/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <i class="fa fa-key">reset</i> </a> |
                                             <a href="<?php echo base_url('user/delete/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <i class="fa fa-trash">Delete</i></a>
                                         </td>
                                     </tr>
-                            <?
+                            <?php
                                     $i++;
                                 }
                             }
                             ?>
-                            </tbody>
                 </tbody>
                 <!-- <tfoot>
                 <tr>

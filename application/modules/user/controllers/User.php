@@ -28,46 +28,18 @@ class User extends My_Controller
     {
         $this->data['page_title'] = 'List User';
         $this->data['main_view'] = 'content/view';
-        $this->data['data'] = $this->general->get('m_user','1',false,false,array('param'=>'id','by'=>'asc'));
+        $this->data['data'] = $this->general->get_query_natural('select a.*,b.nama_group from m_user a left join m_group b on a.id_group = b.id',1);
         $this->load->view('template', $this->data);
     }
 
-    public function hak_akses($id = false)
-    {
-        $this->data['page_title'] = 'Hak Akses';
-        $this->data['main_view'] = 'content/view_hak';
-        $this->data['id_user'] = $id;
-        $this->data['menu_all'] = $this->general->get_query_natural("select * from m_menu WHERE parent_id = 0",1);
-        $this->data['menu_user'] = $this->general->get_query_natural("select * from m_menu_user left JOIN m_menu on m_menu.id = m_menu_user.id_menu WHERE id_user = $id",1);
-        $this->load->view('template', $this->data);
-    }
-
-
-    public function act_update($idUser)
-    {
-
-        $nama = $this->input->post('nama');
-
-        $delete = $this->general->delete('m_menu_user', array('id_user' => $idUser));
-
-        for ($i=0; $i < count($nama); $i++) {
-
-            $insertNew = $this->general->create('m_menu_user', array('id_menu' => $nama[$i], 'id_user' => $idUser));
-        }
-
-
-        if ($delete && $insertNew) {
-            echo ("<script LANGUAGE='JavaScript'>window.alert('Succesfully');window.location.href='".base_url('user')."';</script>");
-        }
-
-    }
+   
 
 
     public function add()
     {
         $this->data['page_title'] = 'Add User';
         $this->data['main_view'] = 'content/add';
-
+        $this->data['group'] = $this->general->get_query_natural("select * from m_group",1);
         $this->load->view('template', $this->data);
     }
 
@@ -77,9 +49,10 @@ class User extends My_Controller
         $nama = $this->input->post('nama');
         $username = $this->input->post('username');
         $password = hash('sha256',$this->input->post('password'));
+        $group = $this->input->post('group');
 
 
-        $action = $this->general->create('m_user', array('nama' => $nama,'username' => $username, 'password' => $password));
+        $action = $this->general->create('m_user', array('nama' => $nama,'username' => $username, 'password' => $password,'id_group'=>$group));
         if ($action) {
             echo ("<script LANGUAGE='JavaScript'>window.alert('Succesfully');window.location.href='".base_url('user')."';</script>");
         }
@@ -97,7 +70,10 @@ class User extends My_Controller
     {
         $this->data['page_title'] = 'Edit User';
         $this->data['main_view'] = 'content/edit';
-        $this->data['data'] = $this->general->getwhere('m_user',array('id'=>$id),false);
+        $this->data['data'] = $this->general->get_query_natural("select a.*,b.id as id_group,b.nama_group from m_user a left join m_group b on a.id_group = b.id where a.id='$id'");
+        $this->data['group'] = $this->general->get_query_natural("select * from m_group",1);
+
+        // $this->data['data'] = $this->general->getwhere('m_user',array('id'=>$id),false);
         
         $this->load->view('template', $this->data);
     }
@@ -108,8 +84,9 @@ class User extends My_Controller
 
         $nama = $this->input->post('nama');
         $username = $this->input->post('username');
+        $group = $this->input->post('group');
 
-        $action = $this->general->update('m_user', array('id'=>$id), array('nama' => $nama, 'username' => $username));
+        $action = $this->general->update('m_user', array('id'=>$id), array('nama' => $nama, 'username' => $username,'id_group' => $group));
         if ($action) {
             echo ("<script LANGUAGE='JavaScript'>window.alert('Succesfully');window.location.href='".base_url('user')."';</script>");
         }

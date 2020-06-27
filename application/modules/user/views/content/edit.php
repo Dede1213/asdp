@@ -43,6 +43,24 @@
                                 <label>Username</label>
                                 <input type="text" name="username" id="title" class="form-control" value="<?php echo $data['username'];?>">
                             </div>
+
+                            <div class="form-group">
+                                <label>Group</label>
+                                <select name="group">
+                                <option value="<?php echo $data['id_group'];?>"><?php echo $data['nama_group'];?></option>
+                                <?php
+                                if($group){
+                                  foreach($group as $row){
+                                    ?>
+                                        <option value="<?php echo $row['id'];?>"><?php echo $row['nama_group'];?></option>
+                                    <?php
+                                  }
+
+                                }
+                                ?>
+                                    
+                                </select>
+                            </div>
                
                 </div>
                 <!-- /.card-body -->

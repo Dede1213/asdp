@@ -49,6 +49,23 @@
                                 <input type="text" name="password" id="title" class="form-control" >
                             </div>
 
+                            <div class="form-group">
+                                <label>Group</label>
+                                <select name="group">
+                                <?php
+                                if($group){
+                                  foreach($group as $row){
+                                    ?>
+                                        <option value="<?php echo $row['id'];?>"><?php echo $row['nama_group'];?></option>
+                                    <?php
+                                  }
+
+                                }
+                                ?>
+                                    
+                                </select>
+                            </div>
+
                 
                 </div>
                 <!-- /.card-body -->
