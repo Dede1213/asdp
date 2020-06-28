@@ -37,10 +37,11 @@
                 <thead>
                 <tr>
                                 <th width="5%">No</th>
-                                <th width="">Nama</th>
-                                <th width="">Username</th>
-                                <th width="">Password</th>
-                                <th width="">Group</th>
+                                <th width="15%">Nama</th>
+                                <th width="10%">Username</th>
+                                <th width="10%">Password</th>
+                                <th width="15%">Nama Cabang</th>
+                                <th width="15%">Group</th>
                                 <th width="30%">Action</th>
                             </tr>
                 </thead>
@@ -56,12 +57,14 @@
                                         <td><?php echo $value['nama'];?></td>
                                         <td><?php echo $value['username'];?></td>
                                         <td><?php echo substr($value['password'],0,20);?></td>
+                                        <td><?php echo $value['nama_cabang'];?></td>
                                         <td><?php echo $value['nama_group'];?></td>
 
                                         <td width="">
 
                                             <a href="<?php echo base_url('user/edit/'.$value['id']);?>"><i class="fa fa-edit">Edit</i></a> | 
-                                            <a href="<?php echo base_url('user/reset_password/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <i class="fa fa-key">reset</i> </a> |
+                                            <a href="<?php echo base_url('user/cabang/'.$value['id']);?>"> <i class="fa fa-list">Cabang</i></a> |
+                                            <!-- <a href="<?php //echo base_url('user/reset_password/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <i class="fa fa-key">reset</i> </a> | -->
                                             <a href="<?php echo base_url('user/delete/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <i class="fa fa-trash">Delete</i></a>
                                         </td>
                                     </tr>

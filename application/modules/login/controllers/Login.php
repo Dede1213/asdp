@@ -16,7 +16,7 @@ class Login extends CI_Controller{
 
     if($this->session->userdata('login') == TRUE )
 		{
-			redirect('dashboard');
+			redirect('home');
 
 		}else{
       $this->data['gagal_login'] = '';

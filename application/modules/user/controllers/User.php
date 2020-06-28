@@ -28,11 +28,39 @@ class User extends My_Controller
     {
         $this->data['page_title'] = 'List User';
         $this->data['main_view'] = 'content/view';
-        $this->data['data'] = $this->general->get_query_natural('select a.*,b.nama_group from m_user a left join m_group b on a.id_group = b.id',1);
+        $this->data['data'] = $this->general->get_query_natural('select a.*,b.nama_group,c.nama_cabang from m_user a left join m_group b on a.id_group = b.id left join m_cabang c on a.id=c.id',1);
         $this->load->view('template', $this->data);
     }
 
-   
+    public function cabang($id = false)
+    {
+        $this->data['page_title'] = 'Cabang User';
+        $this->data['main_view'] = 'content/view_cabang';
+        $this->data['id_user'] = $id;
+        $this->data['cabang_all'] = $this->general->get_query_natural("select * from m_cabang order by regional ASC",1);
+        $this->data['cabang_user'] = $this->general->get_query_natural("select * from m_cabang_user left JOIN m_cabang on m_cabang.id = m_cabang_user.id_cabang WHERE m_cabang_user.id_user = $id",1);
+        $this->load->view('template', $this->data);
+    }
+
+
+    public function act_update($idUser)
+    {
+
+        $nama = $this->input->post('nama');
+
+        $delete = $this->general->delete('m_cabang_user', array('id_user' => $idUser));
+
+        for ($i=0; $i < count($nama); $i++) {
+
+            $insertNew = $this->general->create('m_cabang_user', array('id_cabang' => $nama[$i], 'id_user' => $idUser));
+        }
+
+
+        if ($delete && $insertNew) {
+            echo ("<script LANGUAGE='JavaScript'>window.alert('Succesfully');window.location.href='".base_url('user')."';</script>");
+        }
+
+    }
 
 
     public function add()
