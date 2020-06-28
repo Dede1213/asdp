@@ -30,18 +30,15 @@
             <!-- /.card-header -->
             <div class="card-body">
             <div class="col-md-2">
-                        <a href="<?php echo base_url('user/add');?>" class="btn btn-block btn-primary">Add User</a>
+                        <a href="<?php echo base_url('group/add');?>" class="btn btn-block btn-primary">Add Group</a>
                     </div> <hr>
 
               <table id="dt_menu" class="table table-bordered table-striped" width="100%">
                 <thead>
                 <tr>
                                 <th width="5%">No</th>
-                                <th width="15%">Nama</th>
-                                <th width="10%">Username</th>
-                                <th width="10%">Password</th>
-                                <th width="15%">Nama Cabang</th>
-                                <th width="15%">Group</th>
+                                <th width="">Nama Group</th>
+                                <th width="">Created</th>
                                 <th width="30%">Action</th>
                             </tr>
                 </thead>
@@ -54,19 +51,15 @@
 
                                     <tr>
                                         <td><?php echo $i;?></td>
-                                        <td><?php echo $value['nama'];?></td>
-                                        <td><?php echo $value['username'];?></td>
-                                        <td><?php echo substr($value['password'],0,20);?></td>
-                                        <td><?php echo $value['nama_cabang'];?></td>
                                         <td><?php echo $value['nama_group'];?></td>
+                                        <td><?php echo $value['created'];?></td>
 
                                         <td width="">
 
-                                            <a href="<?php echo base_url('user/edit/'.$value['id']);?>"><button type="button"><i class="fa fa-edit"></i></button></a>
-                                            
-                                            <a href="<?php echo base_url('user/delete/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <button type="button"><i class="fa fa-trash"></i></button></a>
-                                            <a href="<?php echo base_url('user/cabang/'.$value['id']);?>"> <button type="button"><i class="fa fa-edit"></i> Cabang</button></a>
-                                            <!-- <a href="<?php //echo base_url('user/reset_password/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <i class="fa fa-key">reset</i> </a> | -->
+                                            <a href="<?php echo base_url('group/edit/'.$value['id']);?>"><button type="button"><i class="fa fa-edit">Edit</i></button></a>
+                                            <a href="<?php echo base_url('group/delete/'.$value['id']);?>" onclick="return confirm('Are you sure?')"> <button type="button"><i class="fa fa-trash">Delete</i></button></a>
+                                       
+                                            <a href="<?php echo base_url('group/hak_akses/'.$value['id']);?>"> <button type="button"><i class="fa fa-edit">Menu</i></button></a>
                                         </td>
                                     </tr>
                             <?php
